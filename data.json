@@ -1,0 +1,131 @@
+{
+  "alerts": [
+    {
+      "alert_id": "ALERT-A",
+      "customer_id": "CUST-100",
+      "transaction_ids": ["TX-1001"],
+      "trigger_reason": "Unusual card transaction review",
+      "timestamp": "2026-10-10T09:15:00"
+    },
+    {
+      "alert_id": "ALERT-B",
+      "customer_id": "CUST-200",
+      "transaction_ids": ["TX-2001", "TX-2002", "TX-2003", "TX-2004", "TX-2005"],
+      "trigger_reason": "Repeated cash deposits just below the reporting threshold",
+      "timestamp": "2026-10-10T10:00:00"
+    },
+    {
+      "alert_id": "ALERT-C",
+      "customer_id": "CUST-300",
+      "transaction_ids": ["TX-3001"],
+      "trigger_reason": "Large international wire with elevated name-screening match",
+      "timestamp": "2026-10-10T10:30:00"
+    }
+  ],
+  "customers": [
+    {
+      "customer_id": "CUST-100",
+      "name": "Maya Chen",
+      "country": "United States",
+      "declared_income": 85000,
+      "occupation": "Local professional",
+      "risk_rating": "low",
+      "pep_flag": false
+    },
+    {
+      "customer_id": "CUST-200",
+      "name": "Jordan Brooks",
+      "country": "United States",
+      "declared_income": 120000,
+      "occupation": "Small business owner",
+      "risk_rating": "medium",
+      "pep_flag": false
+    },
+    {
+      "customer_id": "CUST-300",
+      "name": "Avery Morgan",
+      "country": "United States",
+      "declared_income": 80000,
+      "occupation": "Consultant",
+      "risk_rating": "high",
+      "pep_flag": false
+    }
+  ],
+  "transactions": [
+    {
+      "transaction_id": "TX-1001",
+      "customer_id": "CUST-100",
+      "amount": 45,
+      "currency": "USD",
+      "counterparty": "Corner Cup Coffee",
+      "counterparty_country": "United States",
+      "timestamp": "2026-10-10T09:12:00",
+      "channel": "debit_card"
+    },
+    {
+      "transaction_id": "TX-2001",
+      "customer_id": "CUST-200",
+      "amount": 9500,
+      "currency": "USD",
+      "counterparty": "Northside Bank Branch",
+      "counterparty_country": "United States",
+      "timestamp": "2026-10-07T11:10:00",
+      "channel": "cash_deposit"
+    },
+    {
+      "transaction_id": "TX-2002",
+      "customer_id": "CUST-200",
+      "amount": 9500,
+      "currency": "USD",
+      "counterparty": "Northside Bank Branch",
+      "counterparty_country": "United States",
+      "timestamp": "2026-10-07T15:40:00",
+      "channel": "cash_deposit"
+    },
+    {
+      "transaction_id": "TX-2003",
+      "customer_id": "CUST-200",
+      "amount": 9500,
+      "currency": "USD",
+      "counterparty": "Northside Bank Branch",
+      "counterparty_country": "United States",
+      "timestamp": "2026-10-08T10:05:00",
+      "channel": "cash_deposit"
+    },
+    {
+      "transaction_id": "TX-2004",
+      "customer_id": "CUST-200",
+      "amount": 9500,
+      "currency": "USD",
+      "counterparty": "Northside Bank Branch",
+      "counterparty_country": "United States",
+      "timestamp": "2026-10-09T12:30:00",
+      "channel": "cash_deposit"
+    },
+    {
+      "transaction_id": "TX-2005",
+      "customer_id": "CUST-200",
+      "amount": 9500,
+      "currency": "USD",
+      "counterparty": "Northside Bank Branch",
+      "counterparty_country": "United States",
+      "timestamp": "2026-10-10T09:45:00",
+      "channel": "cash_deposit"
+    },
+    {
+      "transaction_id": "TX-3001",
+      "customer_id": "CUST-300",
+      "amount": 250000,
+      "currency": "USD",
+      "counterparty": "Nikolai Petrov",
+      "counterparty_country": "North Korea",
+      "timestamp": "2026-10-10T10:20:00",
+      "channel": "international_wire"
+    }
+  ],
+  "screening": {
+    "sanctioned_countries": ["North Korea", "Iran", "Syria"],
+    "pep_names": ["Nikolai Petrov", "Elena Markovic"],
+    "adverse_media_terms": ["fraud", "bribery", "money laundering"]
+  }
+}
