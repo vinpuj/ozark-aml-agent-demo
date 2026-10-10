@@ -1,4 +1,4 @@
-# Breaking Bad Bank: Ozark’s Slightly Less Suspicious Cousin
+# Ozark’s Anti-Money Laundering AI Agent
 
 A conversational hackathon demo of an agentic AML (Anti-Money Laundering) alert investigation. The prototype combines MCP tool calls, deterministic Python risk rules, AI-assisted evidence summaries, and an analyst approval step.
 
