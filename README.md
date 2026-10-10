@@ -1,4 +1,4 @@
-# Ozark’s Anti-Money Laundering AI Agent
+# Breaking Bad Bank: Ozark’s Slightly Less Suspicious Cousin
 
 A conversational hackathon demo of an agentic AML (Anti-Money Laundering) alert investigation. The prototype combines MCP tool calls, deterministic Python risk rules, AI-assisted evidence summaries, and an analyst approval step.
 
@@ -34,7 +34,7 @@ py -3.11 -m venv .venv
 python -m pip install -r requirements.txt
 ```
 
-Copy `.env.example` to `.env` if you want to configure the optional LLM endpoint. Fill in `ASTRA_API_KEY`, `ASTRA_BASE_URL`, and `ASTRA_MODEL`. Keep `.env` private; it is ignored by Git. `MCP_URL` defaults to the local mock server.
+Copy `.env.example` to `.env` if you want to configure the optional LLM endpoint. Fill in `ASTRA_API_KEY`, `ASTRA_BASE_URL`, and `ASTRA_MODEL`. Keep `.env` private; it is ignored by Git. Locally, `MCP_MODE=http` is the default and `MCP_URL` points to the separately running mock server.
 
 ### Run
 
@@ -88,6 +88,29 @@ The main investigation flow is:
 4. The LLM client drafts a factual summary from the collected evidence, or uses a local template if the endpoint is not configured or fails.
 5. The app presents the outcome and trace. For a high-risk alert, it waits for the analyst’s explicit approval or rejection.
 6. After approval, the demo generates a SAR narrative and records a mock filing through an MCP tool.
+
+### Local and hosted MCP modes
+
+The default `MCP_MODE=http` connects to the separately started MCP server at `MCP_URL`, which is useful for showing two distinct local processes. For a single-service host such as Streamlit Community Cloud, set `MCP_MODE=inprocess`. The app then uses FastMCP's in-memory transport to call the same MCP tool server inside the Streamlit process. This keeps MCP tool discovery and calls in the demo while removing the cloud app's dependency on a server running on your laptop.
+
+## Publish a public web app
+
+The simplest hosting option for this Streamlit demo is [Streamlit Community Cloud](https://share.streamlit.io/). The repository must contain `app.py`, `requirements.txt`, the Python modules, `data.json`, and `.streamlit/config.toml` at the expected paths. Community Cloud installs packages from `requirements.txt` and lets you choose the app's Python version in deployment settings.
+
+1. Sign in at [share.streamlit.io](https://share.streamlit.io/) and connect your GitHub account if prompted.
+2. Choose **Create app** and select the public `ozark-aml-agent-demo` repository, branch `main`, and entrypoint `app.py`.
+3. In **Advanced settings**, select Python 3.12.
+4. In the Secrets field, add this setting so the cloud deployment uses its in-process MCP mode:
+
+   ```toml
+   MCP_MODE = "inprocess"
+   ```
+
+   Astra credentials are optional. Without them, the app uses its template-generated summary. If you want LLM prose, add `ASTRA_API_KEY`, `ASTRA_BASE_URL`, and `ASTRA_MODEL` here; never commit credentials to GitHub.
+
+5. Click **Deploy**. After the app starts, copy the `*.streamlit.app` URL from the app page and share it with your demo users. Later commits pushed to the selected GitHub branch are used to update the app.
+
+This is a public demo link, not a production AML service. Anyone with the URL can use the mock alert workflow, including its simulated approval and SAR actions. Do not put real customer or transaction data in the app. The hosted process and its local audit file may reset; this prototype does not provide durable multi-user storage or user authentication.
 
 ## Risk rules in this prototype
 

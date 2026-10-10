@@ -1,5 +1,6 @@
 """Streamlit control room for the agentic AML demo."""
 import json
+import os
 from pathlib import Path
 
 import streamlit as st
@@ -47,7 +48,10 @@ with st.sidebar:
     # completes can cause Streamlit's radio widget to lose its selected option.
     st.caption(" · ".join(f"{alert_id}: {statuses[alert_id]}" for alert_id in alert_ids))
     st.divider()
-    st.caption("MCP server: `http://127.0.0.1:8000/mcp`")
+    if os.getenv("MCP_MODE", "http").strip().lower() == "inprocess":
+        st.caption("MCP server: in-process FastMCP transport")
+    else:
+        st.caption(f"MCP server: `{os.getenv('MCP_URL', 'http://127.0.0.1:8000/mcp')}`")
 
 alert = next(a for a in ALERTS if a["alert_id"] == selected_id)
 customer = next(c for c in DATA["customers"] if c["customer_id"] == alert["customer_id"])
